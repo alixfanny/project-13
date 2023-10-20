@@ -1,0 +1,51 @@
+// Media queries
+$breakpoints: (
+    small: 576px,
+    medium: 768px,
+    large: 992px,
+    xlarge: 1200px
+);
+$bold: bold;
+
+@mixin for-size($breakpoint){
+    @if map-has-key($breakpoints, $breakpoint){
+    @media (max-width: map-get($breakpoints, $breakpoint)){
+        @content;
+    }
+    }@else{
+        @warn "Unknown breakpoint: #{$breakpoint}."
+    }
+};
+
+
+// mixin 
+@mixin display($justify-content, $align-items) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+// css multie-page
+
+html {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+}
+  
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+  
+.main {
+    flex: 1;
+}
+  
+.bg-dark {
+    background-color: #12002b;
+}
