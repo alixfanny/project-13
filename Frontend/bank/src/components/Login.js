@@ -1,9 +1,10 @@
-import { /*loginPending*/ loginSuccess, /*loginFailure*/} from '../redux/reduceur/Loginreduceur';
-import React, { useState } from 'react';
+import { loginSuccess } from '../redux/reduceur/Loginreduceur';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../css/component/connexion.css';
 import { datas } from '../services/CallApi';
+import axios from 'axios';
 
 function Login () {
   const navigate = useNavigate();
@@ -19,7 +20,10 @@ function Login () {
     datas.login(data)
       .then((response) => {
         dispatch(loginSuccess(data));
-	navigate('/profile');
+        response = JSON.parse(response.request.response);
+        localStorage.setItem("token", response.body.token);
+        axios.defaults.headers["Authorization"] = "Bearer " + response.body.token;
+	      navigate('/profile');
       })
       .catch((error) => {
         console.error('Erreur de connexion :', error);

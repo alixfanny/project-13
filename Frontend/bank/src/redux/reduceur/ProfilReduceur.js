@@ -1,10 +1,11 @@
-/*import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  pending: false,
+  pending:false,
+  isLogged: false,
   success: false,
   failure: false,
-  profileData: null,
+  profileData: " ",
 };
 
 const profileSlice = createSlice({
@@ -15,17 +16,20 @@ const profileSlice = createSlice({
       state.pending = true;
     },
     profileSuccess: (state, action) => {
+      state.isLogged = true;
       state.success = true;
       state.profileData = action.payload;
     },
     profileFailure: (state) => {
+      state.isLogged = false;
       state.failure = true;
     },
     clearProfileState: (state) => {
+      state.isLogged = false;
       state.pending = false;
       state.success = false;
       state.failure = false;
-      state.profileData = null;
+      state.profileData = " ";
     },
   },
 });
@@ -37,4 +41,4 @@ export const {
   clearProfileState,
 } = profileSlice.actions;
 
-export default profileSlice.reducer;*/
+export default profileSlice.reducer;

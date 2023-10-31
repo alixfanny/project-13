@@ -1,18 +1,21 @@
-/*import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { profileSuccess } from './votre-reduceur-profile'; // Importez l'action profileSuccess
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { profileSuccess } from '../redux/reduceur/ProfilReduceur';
+import { datas } from '../services/CallApi';
 
 function UserProfile() {
-  const [formData, setFormData] = useState({
-    firstName: 'Tony',
-    lastName: 'Jarvis',
-  });
-
-  const [editing, setEditing] = useState(false);
-
   const dispatch = useDispatch();
+  useEffect(() => {datas.username()
+    .then( (response) => {dispatch(profileSuccess(response.data.body))})
+    .catch((error) => {
+      console.error('Erreur de connexion :', error);
+    },[dispatch]);
+  })
 
-  const handleEditClick = () => {
+  const name = (state) => state.profile.profileData.firstname;
+  const firstname = useSelector(name);
+
+ /* const handleEditClick = () => {
     setEditing(true);
   };
 
@@ -28,13 +31,13 @@ function UserProfile() {
       ...formData,
       [name]: value,
     });
-  };
+  };*/
 
   return (
     <main className="main bg-dark">
       <div className="header">
-      <h1> Welcome back<br/>{formData.firstName} {formData.lastName}!</h1>
-      <button className="edit-button" onClick={handleEditClick}>
+      <h1> Welcome back<br/>{firstname}!</h1>
+      <button className="edit-button">
            Edit Name
       </button>
       </div>
@@ -73,4 +76,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;*/
+export default UserProfile;
