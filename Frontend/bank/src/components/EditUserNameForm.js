@@ -23,6 +23,10 @@ function EditUserNameForm({ name }) {
     });
   }
 
+  const handleCancel = () => {
+    navigate("/profile");
+  };
+
   return (
     <div>
         <div className="main bg-dark container">
@@ -37,7 +41,7 @@ function EditUserNameForm({ name }) {
           </div>
           <div className='container-button'>
             <button className='button-form' onClick={handleUserNameSave}>Save</button>
-            <button className='button-form'>Cancel</button>
+            <button className='button-form'onClick={handleCancel}>Cancel</button>
           </div>
         </div>
     </div>
