@@ -1,0 +1,55 @@
+@import '../variables.scss';
+
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .title{
+        color: white;
+    }
+
+    .container-input{
+        display: flex;
+        align-items: baseline;
+        color: white;
+
+        input{
+            border: none;
+            background-color: transparent;
+            border-bottom: 2px solid white;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        p{
+            font-size: 36px;
+            margin-left: 15%;
+            margin-top: 0;
+        }
+    }
+
+    .container-button{
+        display: flex;
+        justify-content: space-between;
+        width: 15%;
+
+        .button-form{
+            @include button();
+            width: 48%;
+        }
+    }
+}
+
+
+
+
+
+

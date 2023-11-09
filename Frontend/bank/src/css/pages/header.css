@@ -35,19 +35,6 @@ body {
   max-width: 100%;
   width: 200px;
 }
-.main-nav .main-nav-logo .sr-only {
-  border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
-  -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important; /* 2 */
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  white-space: nowrap !important; /* 3 */
-}
 .main-nav .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
@@ -57,8 +44,15 @@ body {
 .main-nav .main-nav-item:hover {
   text-decoration: underline;
 }
-.main-nav .main-nav-item .logo-sign-in {
+.main-nav .main-nav-item .logo-sign {
   margin-right: 5%;
+}
+
+.menu {
+  display: flex;
+}
+.menu .sign-out {
+  margin-left: 1rem;
 }
 
 .main-nav a.router-link-exact-active {

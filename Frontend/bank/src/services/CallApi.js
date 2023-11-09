@@ -12,6 +12,10 @@ const username = () => {
     )
 }
 
-export const datas = {login, username}
+const updateUsername = (newUserData) => {
+    return axios.put('http://localhost:3001/api/v1/user/profile', newUserData);
+};
+
+export const datas = { login, username, updateUsername };
 
 

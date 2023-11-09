@@ -19,7 +19,7 @@ function Header() {
       </NavLink>
       <div>
         <NavLink to={"/sign-in"} className="main-nav-item">
-        <FontAwesomeIcon icon={faUserCircle} className='logo-sign-in' />
+        <FontAwesomeIcon icon={faUserCircle} className='logo-sign' />
           Sign In
         </NavLink>
       </div>

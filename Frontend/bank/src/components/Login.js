@@ -31,7 +31,7 @@ function Login () {
   };
 
   return (
-    <main className="main bg-dark">
+    <main className="main bg-dark connexion">
       <section className="sign-in-content">
         <h1>Sign In</h1>
         <form onSubmit={handleLogin}>
