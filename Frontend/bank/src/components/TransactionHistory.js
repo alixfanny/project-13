@@ -2,7 +2,7 @@ import '../css/component/accountsOverview.css';
 
 function TransactionHistory() {
     return(
-        <div class="main bg-dark transaction">
+        <div className="main bg-dark transaction">
             <h2 className="sr-only">Accounts</h2>
             <section className="account">
                 <div className="account-content-wrapper">

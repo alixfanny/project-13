@@ -1,0 +1,211 @@
+openapi: 3.0.3
+info:
+  title: ArgentBank
+  description: |-
+    Document Api pour transactions.
+  termsOfService: http://swagger.io/terms/
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11 
+servers:
+  - url: https://petstore3.swagger.io/api/v3 //meme que la doc api
+tags:
+  - name: Transactions
+    description: Everything about transactions
+paths:
+  /transaction:
+    get:
+      tags:
+        - transaction
+      summary: récuperer les transactions 
+      description: récuperer toutes les transactions
+      operationId: getTransaction
+      parameters:
+        - name: Id
+          in: query
+          description: Id du compte
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transaction'          
+        '400':
+          description: Invalid status value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      sécutity:
+        BearerAuth:[]
+    put:
+      tags:
+        - transaction
+      summary: modifier les transaction
+      description: modifier les transaction par leur Id
+      operationId: updateTransaction
+      requestBody:
+        description: modifier une transaction existante dans le store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/editTransaction'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Transaction not found
+        '405':
+          description: Validation exception
+        sécutity:
+          BearerAuth:[]
+    post:
+      tags:
+        - transaction
+      summary: ajouter une nouvelle transaction 
+      description: ajouter une nouvelle transaction au store
+      operationId: addTransaction
+      requestBody:
+        description: Create a new transaction in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transaction'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transaction'          
+        '405':
+          description: Invalid input
+        security:
+          BearerAuth:[]
+  /transaction/{Id}:
+    get:
+      tags:
+        - transaction
+      summary: Find transaction by ID
+      description: Returns a single transaction
+      operationId: getTransactionById
+      parameters:
+        - name: transactionId
+          in: path
+          description: ID of transaction to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transaction'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: transaction not found
+        security:
+          BearerAuth:[]
+    delete:
+      tags:
+        - transaction
+      summary: Deletes a transaction
+      description: delete a transaction
+      operationId: transactionPet
+      parameters:
+        - name: Id
+          in: query
+          description: transactionId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successfull
+          content: 
+            aplication/Json: 
+              schema:
+                type: object
+                properties: 
+                  id:
+                    type: number
+                    description: Id de la transaction suprimer
+        '400':
+          description: Invalid transaction value
+      security:
+        bearorAuth: []
+components:
+  securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+  schemas:
+    Transaction:
+      properties:
+        description:
+          type: string
+          description: transaction description
+        amount:
+          type: number
+          description: amount of money used in the transaction
+        balance:
+          type: number
+          description: account balance after transaction
+        type:
+          type: string
+          description: transaction type
+        category:
+          type: string
+          description: transaction category
+        notes:
+          type: string
+          description: transaction notes
+    Category:
+      properties:
+        id:
+          type: integer
+          description: category ID
+        label:
+          type: string
+          description: category label
+    editTransaction:
+      properties:
+        categoryID:
+          type: integer
+          description: category ID
+        notes:
+          type: string
+          description: transaction notes
+    Error:
+      properties:
+        status:
+          type: number
+          description: Error Code
+        message:
+          type: string
+          description: Error Message
+        endpoint:
+          type: string
+          description: Api Endpoint
+        resource:
+          type: number
+          description: ID of the resource the endpoint is trying to reach
+    

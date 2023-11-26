@@ -4,9 +4,8 @@ import HeaderNotConnect from './pages/headerNotConnect.jsx';
 import HeaderConnect from './pages/headerConnect.jsx';
 import Footer from './pages/footer.jsx';
 import HomePage from './pages/homePage.jsx';
-import Profile from './pages/user.jsx';
 import LoginRouter from './identification/routerLogin.js';
-import EditUserName from './pages/editUserName.jsx';
+import ProfilRouter from './identification/routerProfil.js';
 
 function AppRouter() {
     return (
@@ -19,7 +18,6 @@ function AppRouter() {
   
 function RouteRenderer() {
     let location = useLocation();
-
     const isProfileRoute = location.pathname.startsWith('/profile');
 
     return (
@@ -28,8 +26,7 @@ function RouteRenderer() {
         <Routes>
             <Route path="/" element={<HomePage/>}/>
             <Route path="/sign-in/*" element={<LoginRouter/> }/>
-            <Route path='/profile' element={<Profile/>} />
-            <Route path='/profile/ModificationProfil' element={<EditUserName/>}/>
+            <Route path='/profile/*' element={<ProfilRouter/>} />
         </Routes>
         </>
     );

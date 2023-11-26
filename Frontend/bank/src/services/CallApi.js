@@ -1,19 +1,20 @@
-import axios from 'axios';
-
+import Axios from '../identification/auth';
 
 const login = (data) => {
-    return axios.post(`http://localhost:3001/api/v1/user/login`, data)
-    
+    return Axios.post('/api/v1/user/login', data)
 }
 
 const username = () => {
     return(
-        axios.post('http://localhost:3001/api/v1/user/profile')
+        Axios.post('/api/v1/user/profile')
     )
 }
 
-const updateUsername = (newUserData) => {
-    return axios.put('http://localhost:3001/api/v1/user/profile', newUserData);
+const updateUsername = (firstname, lastname) => {
+    return Axios.put('/api/v1/user/profile', {
+        "firstName": firstname,
+        "lastName": lastname
+      });
 };
 
 export const datas = { login, username, updateUsername };

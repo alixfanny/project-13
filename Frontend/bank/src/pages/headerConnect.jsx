@@ -5,8 +5,25 @@ import logo from "../images/argentBankLogo.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function Header() {
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const state = useSelector(state => state.profile.profileData)
+
+  useEffect(() => {
+    if(state.firstName) {
+      setFirstName(state.firstName)
+      setLastName(state.lastName)
+    }
+    return() => {
+      //
+    };
+  }, [state])
+
     return (
       <nav className="main-nav">
         <NavLink className="main-nav-logo" to="./">
@@ -21,7 +38,7 @@ function Header() {
             <div className='user-identify'>
             <NavLink to={""} className="main-nav-item">
             <FontAwesomeIcon icon={faUserCircle} className='logo-sign' />
-                Name
+                {firstName} {lastName}
             </NavLink>
             </div>
             <div className='sign-out'>

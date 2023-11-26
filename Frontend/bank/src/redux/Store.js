@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import connexion from './reduceur/Loginreduceur';
-import profil from './reduceur/ProfilReduceur';
+import loginSlice from './reduceur/Loginreduceur';
+import profileSlice  from './reduceur/ProfilReduceur';
 
 const store = configureStore({
   reducer: {
-    login: connexion,
-    profile: profil,
+    login: loginSlice,
+    profile: profileSlice,
   },
 });
-
 export default store;

@@ -1,16 +1,22 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import axios from 'axios';
 
-let login = () => {
+const Axios = axios.create({
+  baseURL: 'http://localhost:3001',
+});
+
+let logged = () => {
   let token = localStorage.getItem('token');
   return token;
 };
 
-const Authent = ({ child }) => {
-  if (!login()) {
-    return <Navigate to="/login" />;
-  }
-  return child;
-};
+let token = localStorage.getItem('token');
 
-export default Authent;
+Axios.interceptors.request.use((request) => {
+  if (logged()) {
+    request.headers.Authorization = 'Bearer ' + token;
+  }
+
+  return request;
+});
+
+export default Axios;

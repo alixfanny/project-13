@@ -1,0 +1,23 @@
+@import '../variables.scss';
+
+.button-form{
+    @include button();
+    margin-right: 10px;
+}
+
+
+.input-form{
+    background-color: #12002b;
+    border: none;
+    color: white;
+    position: absolute;
+    top: 19%;
+    font-size: 30px;
+    left: 43%;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+
+    &:focus-visible{
+        outline: none;
+    }
+}
