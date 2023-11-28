@@ -1,31 +1,26 @@
 openapi: 3.0.3
 info:
   title: ArgentBank
-  description: |-
-    Document Api pour transactions.
+  description:  API Document for transactions.
   termsOfService: http://swagger.io/terms/
-
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11 
+  version: 1.0.0
 servers:
-  - url: https://petstore3.swagger.io/api/v3 //meme que la doc api
+  - url: http://localhost:3001/api/v1
 tags:
-  - name: Transactions
+  - name: Transaction
     description: Everything about transactions
 paths:
   /transaction:
     get:
       tags:
-        - transaction
-      summary: récuperer les transactions 
-      description: récuperer toutes les transactions
+        - Transaction
+      summary: Retrieve transactions
+      description: Retrieve all transactions
       operationId: getTransaction
       parameters:
-        - name: Id
-          in: query
-          description: Id du compte
+        - in: query
+          name: Id
+          description: Account ID
           required: true
           schema:
             type: string
@@ -35,23 +30,30 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/transaction'          
+                $ref: '#/components/schemas/Transaction'
         '400':
           description: Invalid status value
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
-      sécutity:
-        BearerAuth:[]
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
     put:
       tags:
         - transaction
-      summary: modifier les transaction
-      description: modifier les transaction par leur Id
+      summary: Modify transactions
+      description: Modify transactions by their ID
       operationId: updateTransaction
+      parameters:
+        - in: query
+          name: id
+          description: transaction ID
+          required: true
+          schema:
+            type: string
       requestBody:
-        description: modifier une transaction existante dans le store
+        description: Modify an existing transaction in the store
         content:
           application/json:
             schema:
@@ -63,75 +65,63 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transaction'          
+                $ref: "#/components/schemas/Transaction"
         '400':
           description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
           description: Transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '405':
           description: Validation exception
-        sécutity:
-          BearerAuth:[]
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
     post:
       tags:
         - transaction
-      summary: ajouter une nouvelle transaction 
-      description: ajouter une nouvelle transaction au store
+      summary: Add a new transaction
+      description: Add a new transaction to the store
       operationId: addTransaction
       requestBody:
         description: Create a new transaction in the store
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/transaction'
-        required: true
-      responses:
+              $ref: '#/components/schemas/Transaction'
+      responses :
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/transaction'          
+                  $ref: '#/components/schemas/Transaction'
         '405':
           description: Invalid input
-        security:
-          BearerAuth:[]
-  /transaction/{Id}:
-    get:
-      tags:
-        - transaction
-      summary: Find transaction by ID
-      description: Returns a single transaction
-      operationId: getTransactionById
-      parameters:
-        - name: transactionId
-          in: path
-          description: ID of transaction to return
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/transaction'          
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: transaction not found
-        security:
-          BearerAuth:[]
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
     delete:
       tags:
         - transaction
       summary: Deletes a transaction
       description: delete a transaction
-      operationId: transactionPet
+      operationId: deleteTransaction
       parameters:
-        - name: Id
-          in: query
+        - in: query
+          name: id
           description: transactionId
           required: true
           schema:
@@ -139,18 +129,57 @@ paths:
       responses:
         '200':
           description: successfull
-          content: 
-            aplication/Json: 
+          content:
+            application/json:
               schema:
                 type: object
-                properties: 
+                properties:
                   id:
                     type: number
-                    description: Id de la transaction suprimer
+                    description: Id of the deleted transaction
         '400':
           description: Invalid transaction value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
-        bearorAuth: []
+        - bearerAuth: []
+  /transaction/{id} :
+    get:
+      tags:
+        - transaction
+      summary: Find transaction by ID
+      description: Returns a single transaction
+      operationId: getTransactionById
+      parameters:
+        - in: path
+          name: id
+          description: ID of transaction to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - bearerAuth: []
 components:
   securitySchemes:
       bearerAuth:
@@ -208,4 +237,3 @@ components:
         resource:
           type: number
           description: ID of the resource the endpoint is trying to reach
-    
