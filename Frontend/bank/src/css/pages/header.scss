@@ -33,12 +33,14 @@
 
 .menu{
     display: flex;
+    width: 15%;
 
     .sign-out{
         margin-left: 1rem;
+        width: 52%;
+        cursor: pointer;
     }
 }
-  
  
 .main-nav a.router-link-exact-active {
 color: #42b983;

@@ -5,6 +5,8 @@ const initialState = {
   success: false,
   failure: false,
   action: null,
+  token: null,
+  isAuthenticated: false,
 };
 
 const loginSlice = createSlice({
@@ -17,6 +19,11 @@ const loginSlice = createSlice({
     loginSuccess: (state, action) => {
       state.success = true;
       state.action = action.payload;
+      state.isAuthenticated = true;
+    },
+    logout: (state) => {
+      state.token = null;
+      state.isAuthenticated = false;
     },
     loginFailure: (state) => {
       state.failure = true;
@@ -35,6 +42,7 @@ export const {
   loginSuccess,
   loginFailure,
   clearLoginState,
+  logout,
 } = loginSlice.actions;
 
 export default loginSlice.reducer;

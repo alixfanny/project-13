@@ -7,12 +7,15 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const state = useSelector(state => state.profile.profileData)
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(state.firstName) {
@@ -23,6 +26,12 @@ function Header() {
       //
     };
   }, [state])
+
+  function logout () {
+    localStorage.removeItem("token");
+    axios.defaults.headers["Authorization"] = "";
+	  navigate('/sign-in');
+  }
 
     return (
       <nav className="main-nav">
@@ -42,10 +51,10 @@ function Header() {
             </NavLink>
             </div>
             <div className='sign-out'>
-            <NavLink to={"/"} className="main-nav-item">
+            <div className="main-nav-item" onClick={logout}>
             <FontAwesomeIcon icon={faRightFromBracket} className='logo-sign' />
-                Sign Out
-            </NavLink>
+              Sign Out
+            </div>
             </div>
         </div>
       </nav>
